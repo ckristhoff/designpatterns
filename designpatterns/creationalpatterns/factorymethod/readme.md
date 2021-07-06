@@ -13,7 +13,7 @@ Imagina que estás creando una aplicación de gestión logística. La primera ve
 Al cabo de un tiempo, tu aplicación se vuelve bastante popular. Cada día recibes decenas de peticiones de empresas de transporte marítimo para que incorpores la logística por mar a la aplicación.
 
 ![Problema](./images/problem.png)
-Añadir una nueva clase al programa no es tan sencillo si el resto del código ya está acoplado a clases existentes.
+*Añadir una nueva clase al programa no es tan sencillo si el resto del código ya está acoplado a clases existentes.*
 
 Estupendo, ¿verdad? Pero, ¿qué pasa con el código? En este momento, la mayor parte de tu código está acoplado a la clase `Camión`. Para añadir barcos a la aplicación habría que hacer cambios en toda la base del código. Además, si más tarde decides añadir otro tipo de transporte a la aplicación, probablemente tendrás que volver a hacer todos estos cambios.
 
@@ -24,19 +24,19 @@ Al final acabarás con un código bastante sucio, plagado de condicionales que c
 El patrón Factory Method sugiere que, en lugar de llamar al operador `new` para construir objetos directamente, se invoque a un método fábrica especial. No te preocupes: los objetos se siguen creando a través del operador `new`, pero se invocan desde el método fábrica. Los objetos devueltos por el método fábrica a menudo se denominan productos.
 
 ![Solución](./images/solution.png)
-Las subclases pueden alterar la clase de los objetos devueltos por el método fábrica.
+*Las subclases pueden alterar la clase de los objetos devueltos por el método fábrica.*
 
 A simple vista, puede parecer que este cambio no tiene sentido, ya que tan solo hemos cambiado el lugar desde donde invocamos al constructor. Sin embargo, piensa en esto: ahora puedes sobrescribir el método fábrica en una subclase y cambiar la clase de los productos creados por el método.
 
 No obstante, hay una pequeña limitación: las subclases sólo pueden devolver productos de distintos tipos si dichos productos tienen una clase base o interfaz común. Además, el método fábrica en la clase base debe tener su tipo de retorno declarado como dicha interfaz.
 
 ![Solución 2](./images/solution-2.png)
-Todos los productos deben seguir la misma interfaz.
+*Todos los productos deben seguir la misma interfaz.*
 
 Por ejemplo, tanto la clase `Camión` como la clase `Barco` deben implementar la interfaz `Transporte`, que declara un método llamado `entrega`. Cada clase implementa este método de forma diferente: los camiones entregan su carga por tierra, mientras que los barcos lo hacen por mar. El método fábrica dentro de la clase `LogísticaTerrestre` devuelve objetos de tipo camión, mientras que el método fábrica de la clase `LogísticaMarítima` devuelve barcos.
 
 ![Solución 3](./images/solution-3.png)
-Siempre y cuando todas las clases de producto implementen una interfaz común, podrás pasar sus objetos al código cliente sin descomponerlo.
+*Siempre y cuando todas las clases de producto implementen una interfaz común, podrás pasar sus objetos al código cliente sin descomponerlo.*
 
 El código que utiliza el método fábrica (a menudo denominado código cliente) no encuentra diferencias entre los productos devueltos por varias subclases, y trata a todos los productos como la clase abstracta `Transporte`. El cliente sabe que todos los objetos de transporte deben tener el método `entrega`, pero no necesita saber cómo funciona exactamente.
 
@@ -112,7 +112,7 @@ Por lo tanto, necesitas un método regular capaz de crear nuevos objetos, ademá
 
 ## Pros y contras
 
-:heavy_check_mark:  Evitas un acoplamiento fuerte entre el creador y los productos concretos.
+:heavy_check_mark: Evitas un acoplamiento fuerte entre el creador y los productos concretos.
 
 :heavy_check_mark: Principio de responsabilidad única. Puedes mover el código de creación de producto a un lugar del programa, haciendo que el código sea más fácil de mantener.
 
